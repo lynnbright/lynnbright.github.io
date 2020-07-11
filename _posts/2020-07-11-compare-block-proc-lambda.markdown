@@ -24,7 +24,7 @@ categories: jekyll update
 
 {% highlight ruby %}
 def lunch
-	yield
+  yield
 end
 
 puts lunch { puts 'I want to have some noodles' }
@@ -34,7 +34,7 @@ puts lunch { puts 'I want to have some noodles' }
 
 {% highlight ruby %}
 def lunch
-	yield
+  yield
 end
 
 lunch()   
@@ -46,7 +46,7 @@ lunch()
 
 {% highlight ruby %}
 def lunch
-	yield if block_given?
+  yield if block_given?
 end
 
 lunch()                     # 正常運作，但不會顯示任何東西
@@ -56,15 +56,14 @@ lunch do puts 'meat' end    # 印出 meat
 
 - Block 中的 `do...end` 和 `{} 花括號` 有什麼差別
 
-    結論： `{} 花括號` 的優先順序大於 `do ... end`
+  結論： `{} 花括號` 的優先順序大於 `do ... end`
 
-    {% highlight ruby %}
-    list = [1,2,3,4,5]
+{% highlight ruby %}
+list = [1,2,3,4,5]
 
-    p list.map { |x| x * 2 }      # [2, 4, 6, 8, 10]
-    p list.map do |x| x * 2 end   # <Enumerator: [1, 2, 3, 4, 5]:map>  
-    #只執行到 p(list.map) 就結束了
-    {% endhighlight %}
+p list.map { |x| x * 2 }      # [2, 4, 6, 8, 10]
+p list.map do |x| x * 2 end   # <Enumerator: [1, 2, 3, 4, 5]:map> #只執行到 p(list.map) 就結束了
+{% endhighlight %}
 
 ---
 
@@ -164,14 +163,14 @@ say_hello.yield "Lynn"
     當 lambda 內執行到 `return` 後，會將控制權交回給呼叫它的方法，繼續執行接下來的程式碼。
 
 {% highlight ruby %}
-def hi_proc
-	p 'start'
-	say_hello = -> (name) { return puts "hello to #{name}" }
-	say_hello.call("Lynn")
-  p 'end'
+def hello
+  puts 'start'
+  say_hello = -> (name) { return puts "hello to #{name}" }
+  say_hello.call("Lynn")
+  puts 'end'
 end
 
-hi_proc
+hello
 #印出
 # "start"
 # hello to Lynn
@@ -185,14 +184,14 @@ hi_proc
     接下來的程式碼，都不會被執行到。
 
 {% highlight ruby %}
-def hi_proc
-	p 'start'
-	say_hello = Proc.new { |name| return puts "hello to #{name}" }
-	say_hello.call("Lynn")
-  p 'end'
+def hello
+  puts 'start'
+  say_hello = Proc.new { |name| return puts "hello to #{name}" }
+  say_hello.call("Lynn")
+  puts 'end'
 end
 
-hi_proc
+hello
 
 #印出 
 # "start"
@@ -204,14 +203,14 @@ hi_proc
 - Proc 不會檢查傳入參數的數量，若不足則以 nil 補上。
 
 {% highlight ruby %}
-def hi_proc
-	p 'start'
-	say_hello = Proc.new { |name, age| return p "hello to #{name}" }
-	say_hello.call("Lynn")
-  p 'end'
+def hello
+  puts 'start'
+  say_hello = Proc.new { |name, age| return p "hello to #{name}" }
+  say_hello.call("Lynn")
+  puts 'end'
 end
 
-hi_proc
+hello
 
 #"start"
 #"hello to Lynn"
@@ -220,14 +219,14 @@ hi_proc
 - lambda 會檢查傳入參數的數量，若不足會報錯。
 
 {% highlight ruby %}
-def hi_proc
-	p 'start'
-	say_hello = -> (name, age) { return puts "hello to #{name}" }
-	say_hello.call("Lynn")
-  p 'end'
+def hello
+  puts 'start'
+  say_hello = -> (name, age) { return puts "hello to #{name}" }
+  say_hello.call("Lynn")
+  puts 'end'
 end
 
-hi_proc
+hello
 #wrong number of arguments (given 1, expected 2) (ArgumentError)
 {% endhighlight %}
 
