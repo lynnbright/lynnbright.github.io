@@ -1,11 +1,9 @@
 ---
 layout: post
-title:  "[比較] Block, Proc, lambda"
+title:  "[比較] Ruby - Block, Proc, lambda"
 date:   2020-07-11 22:57:02 +0800
 categories: jekyll update
 ---
-
-# [比較] Block, Proc, lambda
 
 
 ## Block
